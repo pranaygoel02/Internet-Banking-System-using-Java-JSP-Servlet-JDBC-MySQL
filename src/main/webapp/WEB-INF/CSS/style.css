@@ -296,7 +296,7 @@ form label span {
 	display: inline-flex;
 	align-items: center;
 	gap: 0.5rem;
-	width: min-content;
+	width: fit-content;
 	animation: animate-toast forwards 300ms;
 	position: relative;
 	transition: all 300ms ease-out;
@@ -324,6 +324,77 @@ form label span {
 
 .toast-danger {
 	color: red;
+}
+
+.ac-section {
+	display: inline-flex;
+	flex-wrap: wrap;
+	gap: 1rem;
+	align-items: center;
+	margin-top: 1rem;
+}
+
+.ac-card {
+	padding: 1.2rem 1rem;
+	min-width: 240px;
+	border-radius: 8px;
+	border: 1px solid #D1D5DB;
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+	flex-shrink: 0;
+	flex-basis: 20%;
+	gap: 0.5rem;
+	border-left: 4px solid var(--primary-color);
+}
+
+.ac-card h2 {
+	font-size: 1.2rem;
+}
+
+.ac-card p {
+	display: inline-flex;
+	width: 100%;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.ac-card p, .ac-card span {
+	font-size: 0.85rem;
+	color: rgb(44, 48, 54);
+	text-transform: capitalize;
+}
+
+.ac-card span {
+	border-radius: 32px;
+	color: white;
+	padding: 0.4rem 0.75rem;
+	font-size: 0.75rem;
+	text-transform: uppercase;
+}
+
+.ac-card span[data-status="PROCESSING"] {
+	background-color: rgb(255, 198, 2);
+}
+
+.ac-card span[data-status="ACTIVE"] {
+	background-color: green;
+}
+
+.ac-card span[data-status="INACTIVE"] {
+	background-color: var(--dark);
+}
+
+.ac-card span[data-status="BLOCKED"] {
+	background-color: red;
+}
+
+#branch-min-balance[data-show="false"] {
+	visibility: hidden;
+}
+
+#branch-min-balance[data-show="true"] {
+	visibility: visible;
 }
 
 @media only screen and (max-width: 1000px) {

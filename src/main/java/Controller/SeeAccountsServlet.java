@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import Model.Category;
 import Model.Dao;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;

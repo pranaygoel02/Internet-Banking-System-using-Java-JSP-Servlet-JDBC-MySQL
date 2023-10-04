@@ -7,10 +7,11 @@
 			out.println("<h2 id='toast' class='toast toast-success'><i class='bi bi-check2-circle'></i> Success</h2>");
 		}
 		else {
-			out.println("<h2 id='toast' class='toast toast-danger'><i class='bi bi-x-circle'></i> Failed</h2>");
+			out.println("<h2 id='toast' class='toast toast-danger'><i class='bi bi-x-circle'></i> Failed. " + (String)session.getAttribute("toast_msg") + "</h2>");
 		}
 	}
 	session.removeAttribute("show_success");
+	session.removeAttribute("toast_msg");
 %>
 <script>
 	const toastDiv = document.getElementById("toast");

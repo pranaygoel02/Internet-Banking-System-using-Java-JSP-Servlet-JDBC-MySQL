@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Classes.Branch;
+import Classes.Account;
 import Classes.CategoryClass;
 import Connection.Conn;
 
@@ -33,6 +34,24 @@ public class Dao {
 		PreparedStatement ps = conn.prepareStatement("select " + selectString + " from account");
 		ResultSet rs = ps.executeQuery();
 		return rs;
+	}
+	
+	public static List<Account> getUserAccounts(String user_id, String selectString) throws ClassNotFoundException, SQLException {
+		Connection conn = Conn.getConnectionObj();
+		PreparedStatement ps = conn.prepareStatement("select "+ selectString +" from account join branch on branch.branch_id=account.branch_id where customer_id=?");
+		ps.setString(1, user_id);
+		ResultSet rs = ps.executeQuery();
+		List<Account> accountList = new ArrayList<>();
+		while(rs.next()) {
+			String ac_no = rs.getString("account_no");
+			String ac_type = rs.getString("account_type");
+			String ac_status = rs.getString("status");
+			String branch_name = rs.getString("branch_name");
+			String branch_id = rs.getString("branch_id");
+			String balance = rs.getString("balance"); 
+			accountList.add(new Account(ac_no, ac_type, ac_status, branch_id, branch_name, balance));
+		}
+		return accountList;
 	}
 	
 	public static ResultSet getBranches(String selectString) throws ClassNotFoundException, SQLException {		
@@ -181,8 +200,9 @@ public class Dao {
 		while(rs.next()) {
 			String id = rs.getString("branch_id");
 			String name = rs.getString("branch_name");
+			double min_bal = rs.getDouble("min_balance");
 			System.out.println(id + " " + name);
-			branchList.add(new Branch(id, name));
+			branchList.add(new Branch(id, name, min_bal));
 		}
 		return branchList;
 	}

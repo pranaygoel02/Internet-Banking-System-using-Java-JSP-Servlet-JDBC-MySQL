@@ -25,6 +25,10 @@ public class SideNavLinks {
 		accountLinks.add(new Link("See Accounts", "accounts", 2));
 		accountLinks.add(new Link("New Account", "new-account", 3));
 		
+		List<Link> quickLinks = new ArrayList<>();
+		quickLinks.add(new Link("Home", "home", 3));
+		
+		links.add(new LinkGroup("Quick Links", quickLinks, 3));
 		links.add(new LinkGroup("Branch", branchLinks, 2));
 		links.add(new LinkGroup("Employee", employeeLinks, 1));
 		links.add(new LinkGroup("Customer", customerLinks, 2));
