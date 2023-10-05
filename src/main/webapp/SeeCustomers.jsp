@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <%@ include file="AdminEmpLock.jsp" %>
 <%@ include file="AppLayout.jsp" %>
-			<h2>See Customers</h2>
+			<h2 class="heading">Customers</h2>
 			<div class="fix-width">
 			<table>
 			<thead>

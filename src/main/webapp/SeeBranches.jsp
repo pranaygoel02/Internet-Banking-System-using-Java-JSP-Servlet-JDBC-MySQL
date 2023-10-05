@@ -1,3 +1,4 @@
+<%@page import="Util.FormatCurrency"%>
 <%@page import="java.sql.ResultSet"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
@@ -16,7 +17,7 @@
 					<th>City</th>
 					<th>Address</th>
 					<th>Pin Code</th>
-					<th>Min. Balance</th>
+					<th>Min. Balance for Savings A/c <%@ include file="Ruppee.jsp" %> </th>
 					<th>DOA</th>
 				</tr>
 			</thead>
@@ -35,7 +36,7 @@
 					out.println(String.format("<td>%s</td>", branch_set.getString("branch_city")));
 					out.println(String.format("<td>%s</td>", branch_set.getString("branch_addr")));
 					out.println(String.format("<td>%d</td>", branch_set.getInt("branch_pincode")));
-					out.println(String.format("<td>%s</td>", branch_set.getString("min_balance")));
+					out.println(String.format("<td>%s</td>", FormatCurrency.getFormatted(branch_set.getDouble("min_balance"))));
 					out.println(String.format("<td>%s</td>", branch_set.getDate("doc")));
 					out.println("</tr>");
 				}
