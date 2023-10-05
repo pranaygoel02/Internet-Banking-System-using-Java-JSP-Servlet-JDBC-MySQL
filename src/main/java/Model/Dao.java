@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import Classes.Branch;
@@ -36,22 +37,42 @@ public class Dao {
 		return rs;
 	}
 	
-	public static List<Account> getUserAccounts(String user_id, String selectString) throws ClassNotFoundException, SQLException {
-		Connection conn = Conn.getConnectionObj();
-		PreparedStatement ps = conn.prepareStatement("select "+ selectString +" from account join branch on branch.branch_id=account.branch_id where customer_id=?");
-		ps.setString(1, user_id);
+	private static List<Account> getUserAccountsHandler(PreparedStatement ps) throws SQLException {
 		ResultSet rs = ps.executeQuery();
 		List<Account> accountList = new ArrayList<>();
 		while(rs.next()) {
 			String ac_no = rs.getString("account_no");
 			String ac_type = rs.getString("account_type");
 			String ac_status = rs.getString("status");
-			String branch_name = rs.getString("branch_name");
-			String branch_id = rs.getString("branch_id");
 			String balance = rs.getString("balance"); 
-			accountList.add(new Account(ac_no, ac_type, ac_status, branch_id, branch_name, balance));
+			String branch_name = "", branch_id = "", doc = "";
+			try {				
+				branch_name = rs.getString("branch_name");
+				branch_id = rs.getString("branch_id");
+				doc = rs.getString("doc");
+			}
+			catch(SQLException e) {
+				e.printStackTrace();
+			}
+			accountList.add(new Account(ac_no, ac_type, ac_status, branch_id, branch_name, balance, doc));
 		}
 		return accountList;
+	}
+	
+	public static List<Account> getUserAccounts(String user_id, String selectString) throws ClassNotFoundException, SQLException {
+		Connection conn = Conn.getConnectionObj();
+		PreparedStatement ps = conn.prepareStatement("select "+ selectString +" from account join branch on branch.branch_id=account.branch_id where customer_id=?");
+		ps.setString(1, user_id);
+		return getUserAccountsHandler(ps);
+	}
+	
+	public static List<Account> getUserAccounts(String user_id, String selectString, String acc_type, String status) throws ClassNotFoundException, SQLException {
+		Connection conn = Conn.getConnectionObj();
+		PreparedStatement ps = conn.prepareStatement("select "+ selectString +" from account join branch on branch.branch_id=account.branch_id where customer_id=? and account_type=? and status=?");
+		ps.setString(1, user_id);
+		ps.setString(2, acc_type);
+		ps.setString(3, status);
+		return getUserAccountsHandler(ps);
 	}
 	
 	public static ResultSet getBranches(String selectString) throws ClassNotFoundException, SQLException {		
@@ -111,6 +132,26 @@ public class Dao {
 		ps.setString(1, accId);
 		ResultSet rs = ps.executeQuery();
 		return rs;
+	}
+	
+	public static Account getAccountDetails(String accId, String customer_id, String selectString) throws ClassNotFoundException, SQLException {
+		Connection conn = Conn.getConnectionObj();
+		PreparedStatement ps = conn.prepareStatement("select " + selectString + " from account join branch on branch.branch_id=account.branch_id where customer_id=? and account_no=?");
+		ps.setString(1, customer_id);
+		ps.setString(2, accId);
+		ResultSet rs = ps.executeQuery();
+		Account ac = null;
+		while(rs.next()) {
+			String ac_no = rs.getString("account_no");
+			String ac_type = rs.getString("account_type");
+			String ac_status = rs.getString("status");
+			String branch_name = rs.getString("branch_name");
+			String branch_id = rs.getString("branch_id");
+			String balance = rs.getString("balance"); 
+			Date doc = rs.getDate("doc");
+			ac = new Account(ac_no, ac_type, ac_status, branch_id, branch_name, balance, doc.toString());
+		}
+		return ac;
 	}
 	
 	public static ResultSet getBranchDetails(String branchId, String selectString) throws ClassNotFoundException, SQLException {

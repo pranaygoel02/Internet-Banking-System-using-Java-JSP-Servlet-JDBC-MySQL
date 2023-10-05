@@ -30,7 +30,7 @@ public class HomeServlet extends HttpServlet {
 				String user_name = Dao.getUserName(c,user_id);
 				session.setAttribute("user_name", user_name);
 				if(c.toString().equalsIgnoreCase("customer")) {
-					List<Account> accountList = Dao.getUserAccounts(user_id, "branch_name,branch.branch_id,account_type,account_no,status,balance");
+					List<Account> accountList = Dao.getUserAccounts(user_id, "branch_name,branch.branch_id,account_type,account_no,status,balance,account.doc");
 					req.setAttribute("account_list", accountList);
 				}
 			} catch (ClassNotFoundException e) {

@@ -8,11 +8,11 @@
 			<p><%= ((Category)session.getAttribute("category")).toString() %> ID: <%= (String)session.getAttribute("user_id") %></p>	
     		<section class="ac-section">
     		<c:forEach items="${account_list}" var="ac">
-        		<div class="ac-card">
+        		<a href="account-info?account_no=${ac.no}" class="ac-card">
         		<p>A/c No.: ${ac.no}</p>
         		<h2>Rs. ${ac.balance} INR</h2>
         		<p>${ac.type}<span data-status="${ac.status}">${ac.status}</span></p>	
-        		</div>        		
+        		</a>        		
     		</c:forEach>
     		</section>
 

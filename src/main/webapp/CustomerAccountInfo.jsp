@@ -3,6 +3,8 @@
 <!DOCTYPE html>
 <%@ include file="AppLayout.jsp"%>
 <%@ include file="Toast/Toast.jsp" %>
-<h2 class="heading">Open a new account</h2>
+<h2 class="heading">Account Info</h2>
+<p>${acc.no}</p>
+<p>${acc.doc}</p>
 
 <%@ include file="AppLayoutEnd.jsp"%>

@@ -27,6 +27,7 @@ public class SideNavLinks {
 		
 		List<Link> quickLinks = new ArrayList<>();
 		quickLinks.add(new Link("Home", "home", 3));
+		quickLinks.add(new Link("Transaction", "transaction", 3));
 		
 		links.add(new LinkGroup("Quick Links", quickLinks, 3));
 		links.add(new LinkGroup("Branch", branchLinks, 2));
