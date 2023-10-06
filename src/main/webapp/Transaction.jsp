@@ -3,6 +3,7 @@
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <%@ include file="AppLayout.jsp" %>
+<%@ include file="OnlyCustomerLock.jsp" %>
 <%@ include file="Toast/Toast.jsp" %>
 			<h2 class="heading">Transaction</h2>
 			<form method="POST" action="transaction">

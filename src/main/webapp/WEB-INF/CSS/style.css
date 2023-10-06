@@ -406,6 +406,11 @@ form label span {
 }
 
 [data-type="Send"] {
+	color: red;
+	font-weight: 500;
+}
+
+[data-type="Received"] {
 	color: green;
 	font-weight: 500;
 }
@@ -421,10 +426,7 @@ form label span {
 	font-size: 1.25rem;
 }
 
-[data-type="Recieved"] {
-	color: red;
-	font-weight: 500;
-}
+
 
 .ac-info-card > div:nth-child(2) {
 	text-align: right;

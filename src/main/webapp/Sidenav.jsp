@@ -14,7 +14,7 @@
 				if (type.getLevel() <= linkGroup.blockingLevel) {
 			out.println("<li><p class='group-link-label'>" + linkGroup.label + "</p>");
 			for (Link link : linkGroup.links) {
-				if (type.getLevel() <= link.blockingLevel)
+				if (type.getLevel() >= link.min_blockingLevel && type.getLevel() <= link.max_blockingLevel)
 					out.println("<a href='" + link.link + "'>" + link.label + "</a>");
 			}
 			out.println("</li>");

@@ -2,14 +2,15 @@ package Classes;
 
 public class Transaction {
 
-	public final String acc, amount, id, doc, type;
+	public final String acc, amount, id, doc, type, name;
 
-	public Transaction(String id, String acc, String amount, String doc, String type) {
+	public Transaction(String id, String acc, String amount, String doc, String type, String name) {
 		this.acc = acc;
 		this.amount = amount;
 		this.id = id;
 		this.doc = doc;
 		this.type = type;
+		this.name = name;
 	}
 
 	public String getAcc() {
@@ -30,6 +31,10 @@ public class Transaction {
 
 	public String getType() {
 		return type;
+	}
+
+	public String getName() {
+		return name;
 	}
 
 }

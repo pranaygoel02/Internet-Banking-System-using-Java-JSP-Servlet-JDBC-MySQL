@@ -170,25 +170,33 @@ public class Dao {
 		List<Transaction> listTransaction = new ArrayList<>();
 
 		try {
-			String sql = "SELECT\r\n" + "  transaction_id,\r\n" + "  CASE\r\n"
-					+ "    WHEN account_no_from = ? THEN account_no_to\r\n" + "    ELSE account_no_from\r\n"
-					+ "  END AS account,\r\n" + "  amount,\r\n" + "  doc,\r\n" + "  CASE\r\n"
-					+ "    WHEN account_no_from = ? THEN 'Send'\r\n" + "    ELSE 'Recieved'\r\n" + "  END AS type\r\n"
-					+ "FROM transaction\r\n" + "WHERE account_no_from = ? OR account_no_to = ?";
+			String sql = "SELECT\r\n" + "  t.transaction_id,\r\n" + "  CASE\r\n"
+					+ "    WHEN t.account_no_from = ? THEN t.account_no_to\r\n" + "    ELSE t.account_no_from\r\n"
+					+ "  END AS account,\r\n" + "  (\r\n" + "    SELECT c.customer_name\r\n" + "    FROM customer c\r\n"
+					+ "    WHERE c.customer_id = (\r\n" + "      SELECT a.customer_id\r\n" + "      FROM account a\r\n"
+					+ "      WHERE a.account_no = (\r\n" + "        CASE\r\n"
+					+ "          WHEN t.account_no_from = ? THEN t.account_no_to\r\n"
+					+ "          ELSE t.account_no_from\r\n" + "        END\r\n" + "      )\r\n" + "    )\r\n"
+					+ "  ) AS name,\r\n" + "  amount,\r\n" + "  t.doc,\r\n" + "  CASE\r\n"
+					+ "    WHEN t.account_no_from = ? THEN 'Send'\r\n" + "    ELSE 'Received'\r\n" + "  END AS type\r\n"
+					+ "FROM transaction t\r\n" + "WHERE t.account_no_from = ? OR t.account_no_to = ? \r\n"
+					+ "ORDER BY t.doc DESC";
 			PreparedStatement statement = Conn.getConnectionObj().prepareStatement(sql);
 			statement.setString(1, acc_no);
 			statement.setString(2, acc_no);
 			statement.setString(3, acc_no);
 			statement.setString(4, acc_no);
+			statement.setString(5, acc_no);
 			ResultSet result = statement.executeQuery();
 
 			while (result.next()) {
 				String id = result.getString("transaction_id");
 				String acc = result.getString("account");
+				String name = result.getString("name");
 				String amount = FormatCurrency.getFormatted(result.getDouble("amount"));
 				String doc = result.getString("doc");
 				String type = result.getString("type");
-				Transaction t = new Transaction(id, acc, amount, doc, type);
+				Transaction t = new Transaction(id, acc, amount, doc, type, name);
 				listTransaction.add(t);
 			}
 

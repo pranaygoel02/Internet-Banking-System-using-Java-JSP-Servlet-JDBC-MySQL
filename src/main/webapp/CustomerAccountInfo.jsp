@@ -25,6 +25,7 @@
 					<th>Transaction ID</th>
 					<th>Type</th>
 					<th>Account Number</th>
+					<th>Account Holder Name</th>
 					<th>Amount (&#8377;)</th>
 					<th>Date-Time</th>
 				</tr>
@@ -35,6 +36,7 @@
 						<td>${t.id}</td>
 						<td>${t.type}</td>
 						<td>${t.acc}</td>
+						<td>${t.name}</td>
 						<td data-type="${t.type}">${t.amount}</td>
 						<td>${t.doc}</td>
 					</tr>
