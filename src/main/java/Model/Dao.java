@@ -166,7 +166,26 @@ public class Dao {
 		return ac;
 	}
 
-	public static List<Transaction> getTransactions(String acc_no) throws ClassNotFoundException {
+	public static int getTotalTransactionCount(String acc_no) throws ClassNotFoundException {
+		int cnt = 0;
+		try {
+			String sql = "SELECT count(t.transaction_id) FROM transaction t WHERE t.account_no_from = ? OR t.account_no_to = ?";
+			PreparedStatement statement = Conn.getConnectionObj().prepareStatement(sql);
+			statement.setString(1, acc_no);
+			statement.setString(2, acc_no);
+			ResultSet result = statement.executeQuery();
+			while (result.next()) {
+				cnt = result.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return cnt;
+	}
+
+	public static List<Transaction> getTransactions(String acc_no, int offset, int pageSize)
+			throws ClassNotFoundException {
 		List<Transaction> listTransaction = new ArrayList<>();
 
 		try {
@@ -180,13 +199,15 @@ public class Dao {
 					+ "  ) AS name,\r\n" + "  amount,\r\n" + "  t.doc,\r\n" + "  CASE\r\n"
 					+ "    WHEN t.account_no_from = ? THEN 'Send'\r\n" + "    ELSE 'Received'\r\n" + "  END AS type\r\n"
 					+ "FROM transaction t\r\n" + "WHERE t.account_no_from = ? OR t.account_no_to = ? \r\n"
-					+ "ORDER BY t.doc DESC";
+					+ "ORDER BY t.doc DESC\r\n" + "LIMIT ? OFFSET ?";
 			PreparedStatement statement = Conn.getConnectionObj().prepareStatement(sql);
 			statement.setString(1, acc_no);
 			statement.setString(2, acc_no);
 			statement.setString(3, acc_no);
 			statement.setString(4, acc_no);
 			statement.setString(5, acc_no);
+			statement.setInt(6, pageSize);
+			statement.setInt(7, offset);
 			ResultSet result = statement.executeQuery();
 
 			while (result.next()) {

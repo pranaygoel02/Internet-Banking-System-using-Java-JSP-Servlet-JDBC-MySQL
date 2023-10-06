@@ -13,7 +13,7 @@
 	<%=(String) session.getAttribute("user_id")%></p>
 <section class="ac-section">
 	<c:forEach items="${account_list}" var="ac">
-		<a href="account-info?account_no=${ac.no}" class="ac-card">
+		<a href="account-info?account_no=${ac.no}&page=${1}" class="ac-card">
 			<p>A/c No.: ${ac.no}</p>
 			<h2>&#8377;${ac.balance}</h2>
 			<p>${ac.type}<span data-status="${ac.status}">${ac.status}</span>

@@ -8,7 +8,7 @@
 			<h2 class="heading">Transaction</h2>
 			<form method="POST" action="transaction">
 			<label for="from-ac"><span>From A/c</span>
-			<select name="from-ac">
+			<select required="required" name="from-ac">
 			<c:forEach items="${account_list}" var="ac">
         		<option>
         		${ac.no} - Rs. ${ac.balance}
@@ -17,10 +17,10 @@
 			</select>
 			</label>
 			<label for="to-ac"><span>To A/c</span>
-			<input type="text" name="to-ac" placeholder="Enter receiver account number"/>
+			<input required="required" type="text" name="to-ac" placeholder="Enter receiver account number"/>
 			</label>
 			<label for="amt"><span>Amount</span>
-			<input type="text" name="amt" placeholder="Enter amount"/>
+			<input required="required" type="text" name="amt" placeholder="Enter amount"/>
 			</label>
 			<button type="submit">Transfer</button>
 			</form>

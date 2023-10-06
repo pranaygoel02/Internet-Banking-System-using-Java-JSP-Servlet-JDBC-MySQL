@@ -154,6 +154,7 @@ table td,
 table th{
 	border: 1px solid #ddd;
 	padding: 0.5rem;
+	white-space: nowrap;
 }
 
 table td, table th, table a {
@@ -211,6 +212,7 @@ nav ul li a {
 	color: white;
 	font-weight: 600;
 	font-size: 1.2rem;
+	width: min-content;
 }
 
 nav ul li a {
@@ -304,7 +306,7 @@ form label span {
 
 .logo {
 	object-fit: contain;
-	width: 40%;
+	width: 20%;
 }
 
 @keyframes animate-toast {
@@ -415,6 +417,23 @@ form label span {
 	font-weight: 500;
 }
 
+.pagination {
+	display: inline-flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.page-number {
+	padding: 0.5rem 0.75rem;
+	outline: 1px solid #D1D5DB;
+	border-radius: 4px;
+}
+
+.current-page, .current-page:hover {
+	background: var(--primary-color);
+	color: white;
+}
+
 #transactions {
 	padding-block: 1rem;
 	display: flex;
@@ -469,8 +488,17 @@ form label span {
 		padding: 1.2rem 1rem !important;
 	}
 	
+	.ac-info-card > div:nth-child(2) {
+		text-align: left;
+	}
+	
+	.ac-info-card {
+		border-left: 6px solid var(--primary-color);
+	}
+	
 	.logo {
 		font-size: 1rem;
+		width: 50%;
 	}
 
 	.login_main {
