@@ -18,6 +18,8 @@
 </div>
 <section id="transactions">
 	<h2>Transactions</h2>
+	<c:choose>
+	<c:when test="${transactions.size() > 0 }">
 	<div class="fix-width">
 		<table>
 			<thead>
@@ -85,6 +87,9 @@
 			</c:if>
 		</div>
 	</div>
+	</c:when>
+	<c:otherwise>No transactions to show.</c:otherwise>
+	</c:choose>
 
 </section>
 <%@ include file="AppLayoutEnd.jsp"%>
