@@ -10,7 +10,9 @@
 	ID:
 	<%=(String) session.getAttribute("user_id")%></p>
 </div>
+	<c:if test="${account_list.size() > 0 }">
 	<h2 class="sub-heading">Your Accounts</h2>
+	</c:if>
 <section class="ac-section">
 	<c:forEach items="${account_list}" var="ac">
 		<a href="account-info?account_no=${ac.no}&page=${1}" class="ac-card">
