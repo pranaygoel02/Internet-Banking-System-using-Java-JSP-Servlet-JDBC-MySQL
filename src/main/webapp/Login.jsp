@@ -2,6 +2,8 @@
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 <style><%@include file="/WEB-INF/CSS/style.css"%></style>
 <head>
 <meta charset="ISO-8859-1">
@@ -12,6 +14,7 @@
 	<main class="login-form login-form-grid">
 		<section>
 		<div class="container">
+			<%@ include file="Toast/Toast.jsp" %>
 			<h2 class="login-header">Login to Internet Banking</h2>
 			<%@include file="Login.html"%>
 			<%
@@ -20,6 +23,7 @@
 				out.println("Invalid Credentials");
 			}
 			%>
+			<p style="text-align: center">New to Elite Bank? <a style="text-decoration:underline" href="register">Register here</a></p>
 			</div>
 		</section>
 	</main>
