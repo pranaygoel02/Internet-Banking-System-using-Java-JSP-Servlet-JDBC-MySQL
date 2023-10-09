@@ -8,17 +8,25 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-@WebServlet("/add-customer")
-public class AddCustomerServlet extends HttpServlet {
+@WebServlet("/register")
+public class RegisterNewCustomerServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		RequestDispatcher rd = req.getRequestDispatcher("AddCustomer.jsp");
-		rd.forward(req, resp);
+		HttpSession session = req.getSession();
+		String uid = (String) session.getAttribute("user_id");
+		System.out.println(uid);
+		if (uid != null) {
+			resp.sendRedirect("home");
+		} else {
+			RequestDispatcher rd = req.getRequestDispatcher("RegisterNewCustomer.jsp");
+			rd.forward(req, resp);
+		}
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		RegisterCustomer.register(req, resp, "add-customer");
+		RegisterCustomer.register(req, resp, "login");
 	}
 }
